@@ -216,7 +216,7 @@ module.exports = async () => {
     
   }
 
-  await waitFor(5000);
+  await waitFor(20000);
 
   await browser.close();
 

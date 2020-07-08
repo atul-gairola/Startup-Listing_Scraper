@@ -5,6 +5,7 @@ const betaListScraper = require("./betaList");
 const craftScraper = require("./craft");
 const e27Scraper = require('./e27');
 const tracxnScraper = require('./tracxn');
+const startupIndiaScraper = require('./startupIndia');
 const vbProfileScraper = require('./vbProfiles');
 
 (async () => {
@@ -23,27 +24,21 @@ const vbProfileScraper = require('./vbProfiles');
     // scrapping betalist
     await betaListScraper();
 
-    await waitFor(5000);
-
     // scraping craft
-    await craftScraper();
-
-    await waitFor(5000);
+    // await craftScraper();
 
     // scraping e27 
     await e27Scraper();
 
-    await waitFor(5000);
+    // scraping startupIndia
+    await startupIndiaScraper();
+
 
     // scraping tracxn
     await tracxnScraper();
 
-    await waitFor(5000);
-
     // scraping vbProfiles
     await vbProfileScraper();
-
-    await waitFor(10000);
   
   mongoose.disconnect(() => console.log("disconnected from the db"));
     
