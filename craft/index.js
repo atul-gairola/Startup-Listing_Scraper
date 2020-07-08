@@ -6,7 +6,7 @@ const { DataModel } = require('./schema');
 module.exports = async () => {
   
   const browser = await puppeteer.launch({
-    headless: false,
+    headless: true,
     defaultViewport: null
   });
 

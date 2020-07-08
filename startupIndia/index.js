@@ -1,22 +1,9 @@
 require("dotenv").config();
 const puppeteer = require("puppeteer");
-const mongoose = require("mongoose");
 
 const { DataModel } = require("./schema");
 
 (async () => {
-
-  // connecting to the DB
-  mongoose
-    .connect(
-      `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASS}@cluster0-ymx8s.mongodb.net/Startup_Listing?retryWrites=true&w=majority`,
-      {
-        useUnifiedTopology: true,
-        useNewUrlParser: true,
-      }
-    )
-    .then(() => console.log("Connected to the db"))
-    .catch((err) => console.log(err));
 
   const browser = await puppeteer.launch({
     headless: true,
@@ -157,8 +144,6 @@ const { DataModel } = require("./schema");
 
   await waitFor(3000);
   await browser.close();
-
-  mongoose.disconnect(() => console.log("StartupIndia scraper disconnected from the server"));
 
 })();
 
