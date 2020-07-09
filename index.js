@@ -31,11 +31,11 @@ const vbProfileScraper = require('./vbProfiles');
     // await e27Scraper();
 
     // scraping startupIndia
-    await startupIndiaScraper();
+    // await startupIndiaScraper();
 
 
     // scraping tracxn
-    await tracxnScraper();
+    // await tracxnScraper();
 
     // scraping vbProfiles
     await vbProfileScraper();

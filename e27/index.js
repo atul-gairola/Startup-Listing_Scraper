@@ -21,7 +21,8 @@ module.exports = async () => {
 
   let isThereMore ;
 
-  let count = 0;
+  // for testing
+  // let count = 0;
 
   while(isThereMore !== null){
   // for testing
@@ -32,7 +33,8 @@ module.exports = async () => {
     });
     await page.waitFor(".load-more-btn");
     isThereMore = await page.$(".load-more-btn.hide");
-    console.log("done", count++);
+    // for testing
+    // console.log("done", count++);
   }
 
   const allLinks = await page.evaluate(() =>
@@ -40,8 +42,9 @@ module.exports = async () => {
   );
 
   const links = allLinks.slice(1);
-
-  // console.log(links); testing
+  
+  // for testing
+  // console.log(links);
 
   for(let i = 0; i < links.length; i++){
 

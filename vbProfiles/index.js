@@ -42,7 +42,8 @@ module.exports = async () => {
       await page.click("#pnnext");
       await page.waitForNavigation();
       await getStartupLinks_Google();
-    } else return;
+    } 
+    else return;
   };
 
   await page.goto(url, {

@@ -15,7 +15,6 @@ module.exports = async () => {
 
   const yahooUrl =
     "https://in.search.yahoo.com/search;_ylt=AwrPhSy9yfle2kUAv3m7HAx.;_ylu=X3oDMTEzZzNnZms4BGNvbG8Dc2czBHBvcwMxBHZ0aWQDBHNlYwNwYWdpbmF0aW9u?p=site%3Ahttps%3A%2F%2Ftracxn.com%2Fd%2Fcompanies&pz=10&ei=UTF-8&fr=yfp-t&fp=1&b=11&pz=10&xargs=0";
-
   const googleUrl =
     "https://www.google.com/search?q=site%3Atracxn.com%2Fd%2Fcompanies&rlz=1C1CHBF_enIN894IN894&oq=site%3A&aqs=chrome.0.69i59l3j69i57j69i58j69i60j69i65l2.8039j0j4&sourceid=chrome&ie=UTF-8";
 
@@ -36,11 +35,14 @@ module.exports = async () => {
       });
     });
 
-    // console.log(onPageLinks);  testing
+    // for testing
+    // console.log(onPageLinks);
 
     startupLinks = startupLinks.concat(onPageLinks);
 
     while (pageCount < 99) {
+      // for testing
+    // while (pageCount < 2) {
       pageCount++;
       console.log(pageCount);
       await page.waitFor(".next");
