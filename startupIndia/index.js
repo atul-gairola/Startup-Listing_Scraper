@@ -3,10 +3,9 @@ const puppeteer = require("puppeteer");
 
 const { DataModel } = require("./schema");
 
-(async () => {
-
+module.exports = async () => {
   const browser = await puppeteer.launch({
-    headless: true,
+    headless: false,
   });
 
   const page = await browser.newPage();
@@ -22,9 +21,13 @@ const { DataModel } = require("./schema");
 
   let loadMoreButton = await page.$("#loadMoreNew");
 
-  let count = 0;
+  // testing
+  // let count = 0;
 
   while (loadMoreButton !== null) {
+    // testing
+    // while (count < 4) {
+
     await page.waitFor(3000);
     await page.click("#loadMoreNew");
     await page.waitForResponse(
@@ -32,7 +35,9 @@ const { DataModel } = require("./schema");
     );
     await page.waitFor(3000);
     loadMoreButton = await page.$("#loadMoreNew");
-    count++;
+
+    // testing
+    // count++;
     console.log(count);
   }
 
@@ -50,23 +55,23 @@ const { DataModel } = require("./schema");
     await page.waitFor(".company-name p");
 
     const name = await page.$eval(".company-name p", (el) => el.innerText);
-    console.log("done");
+    // console.log("done");
     const img = await page.$eval(".image-wrapper img", (el) => el.src);
-    console.log("done");
+    // console.log("done");
     const website =
       (await page.$(".website")) !== null
         ? await page.$eval(".website", (el) => el.href)
         : null;
-    console.log("done");
+    // console.log("done");
     const description = await page.$eval(
       ".read.margin-t20",
       (el) => el.innerText
     );
-    console.log("done");
+    // console.log("done");
     const dpiit_recognised = (await page.$(".dpiit-recog"))
       ? await page.$eval(".dpiit-recog", (el) => el.innerText)
       : "not recognised";
-    console.log("done");
+    // console.log("done");
     const details = await page.$$eval(".content-section", (arr) =>
       arr.map((cur) => {
         return {
@@ -75,7 +80,7 @@ const { DataModel } = require("./schema");
         };
       })
     );
-    console.log("done");
+    // console.log("done");
     const multipleMembers = await page.$$(".member");
     let members = [];
     if (multipleMembers.length > 0) {
@@ -109,7 +114,7 @@ const { DataModel } = require("./schema");
             }
           );
         }
-        console.log("done");
+        // console.log("done");
         return {
           name,
           pic,
@@ -130,22 +135,20 @@ const { DataModel } = require("./schema");
       members,
     };
 
-    console.log(data); testing
+    // testing
+    // console.log(data);
 
     const finalData = new DataModel(data);
 
-    await finalData.save(err => {
-      if(err)
-      console.log('Error saving the data. Err: ' + err);
-      else
-      console.log('Data from startupIndia saved to the DB');
+    await finalData.save((err) => {
+      if (err) console.log("Error saving the data. Err: " + err);
+      else console.log("Data from startupIndia saved to the DB");
     });
   }
 
-  await waitFor(3000);
+  await waitFor(10000);
   await browser.close();
-
-})();
+};
 
 /*
 img - document.querySelector('.image-wrapper img').src;
