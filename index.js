@@ -22,20 +22,20 @@ const vbProfileScraper = require('./vbProfiles');
     .catch((err) => console.log(err));
 
     // scrapping betalist
-    // await betaListScraper();
+    await betaListScraper();
 
     // scraping craft
     // await craftScraper();
 
     // scraping e27 
-    // await e27Scraper();
+    await e27Scraper();
 
     // scraping startupIndia
-    // await startupIndiaScraper();
+    await startupIndiaScraper();
 
 
     // scraping tracxn
-    // await tracxnScraper();
+    await tracxnScraper();
 
     // scraping vbProfiles
     await vbProfileScraper();
