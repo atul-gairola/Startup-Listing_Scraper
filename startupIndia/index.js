@@ -5,7 +5,7 @@ const { DataModel } = require("./schema");
 
 module.exports = async () => {
   const browser = await puppeteer.launch({
-    headless: true,
+    headless: false,
   });
 
   const page = await browser.newPage();
@@ -22,11 +22,11 @@ module.exports = async () => {
   let loadMoreButton = await page.$("#loadMoreNew");
 
   // testing
-  // let count = 0;
+  let count = 0;
 
-  while (loadMoreButton !== null) {
+  // while (loadMoreButton !== null) {
     // testing
-    // while (count < 4) {
+    while (count < 4) {
 
     await page.waitFor(3000);
     await page.click("#loadMoreNew");
@@ -37,7 +37,7 @@ module.exports = async () => {
     loadMoreButton = await page.$("#loadMoreNew");
 
     // testing
-    // count++;
+    count++;
     console.log(count);
   }
 

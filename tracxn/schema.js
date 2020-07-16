@@ -8,6 +8,7 @@ const linksSchema = new Schema({
 });
 
 const companySchema = new Schema({
+    s_num: Number,
     slug: String,
     name: String,
     website: String,

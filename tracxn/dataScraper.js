@@ -1,6 +1,6 @@
 require("dotenv").config();
-const mongoose = require("mongoose");
 const puppeteer = require("puppeteer");
+const notifier = require('node-notifier');
 
 const { LinksModel, CompanyModel } = require("./schema");
 
@@ -13,24 +13,43 @@ module.exports = async () => {
     links = docs;
   });
 
+  console.log('Links imported from the DB')
+
   const browser = await puppeteer.launch({
-    headless: true,
+    headless: false,
   });
 
   const page = await browser.newPage();
 
+  // Configure the navigation timeout
+  page.setDefaultNavigationTimeout(0);
+
+  let resumeCount = 0;
+
+  await CompanyModel.find({})
+  .sort({s_num: -1})
+  .limit(1)
+  .then(el => {
+    if(el.length > 0){
+      resumeCount = el[0].s_num;
+      console.log('Restarting from ' + resumeCount);
+    }
+  });
+
   // looping through the links
-  for (let i = 0; i < links.length; i++) {
+  for (let i = resumeCount; i < links.length; i++) {
+    
+    try{
     // going to the current page
     await page.goto(links[i].link, {
-      waitUntil: "domcontentloaded",
+      waitUntil: 'networkidle0',
     });
 
     let count = 0;
 
     // iterating 'next' for 100 times through each link
     while (count < 100) {
-  
+     try{ 
       await page.waitFor(".txn--font-18.txn--text-decoration-none");
 
       count++;
@@ -171,8 +190,11 @@ module.exports = async () => {
         };
       });
 
+      console.log(i);
+
       // final data
       const companyData = {
+        s_num: i,
         slug: slug,
         ...dataSet,
       };
@@ -187,7 +209,7 @@ module.exports = async () => {
             .querySelectorAll(".txn--font-18.txn--text-decoration-none")[1]
             .click();
         });
-        await page.waitForNavigation();
+        await page.waitFor(10000);
       } else {
         // saving to the DB
         const data = new CompanyModel(companyData);
@@ -200,9 +222,22 @@ module.exports = async () => {
             .querySelectorAll(".txn--font-18.txn--text-decoration-none")[1]
             .click();
         });
-        await page.waitForNavigation();
+        await page.waitFor(10000);
       }
+    }catch(err){
+        console.log('Err : ' + err);
+        const url = page.url();
+        throw url;
+    }  
     }
+  }catch(err){
+    notifier.notify({
+      title: 'Error in craft scrapper',
+      message: `Err in \n${err}`  
+    });
+    console.log('Error in:' + err);
+    console.log('Index of the link in the array' + i );
+  }
   }
 
   await browser.close();

@@ -4,10 +4,8 @@ const {DataModel} = require('./schema');
 
 module.exports = async () => {
 
-
   const browser = await puppeteer.launch({
-    headless: true,
-    // args: ['--proxy-server=3.16.78.94:3838']
+    headless:false
   });
 
   const page = await browser.newPage();
@@ -60,36 +58,20 @@ module.exports = async () => {
       waitUntil: "networkidle0",
     });
 
-    const name = await page.$eval(
-      "h1.media-heading.ellipsis",
-      (el) => el.innerText
-    );
+    const name = await page.$eval("h1.media-heading.ellipsis",(el) => el.innerText);
     console.log("done");
     const logo = await page.$eval(".img-thumbnail._loaded", (el) => el.src);
     console.log("done");
-    const location = await page.$eval(
-      ".media-body",
-      (el) => el.innerText.split(":")[1]
-    );
+    const location = await page.$eval(".media-body",(el) => el.innerText.split(":")[1]);
     console.log("done");
-
-    const about = await page.$eval(
-      "[itemprop='articleBody']",
-      (el) => el.innerText
-    );
+    const about = await page.$eval("[itemprop='articleBody']",(el) => el.innerText);
     console.log("done");
-
-    const cardDetails = await page.$$eval(".card.info-card", (arr) =>
-      arr.map((cur) => cur.innerText.split("\n")[0])
-    );
+    const cardDetails = await page.$$eval(".card.info-card", (arr) => arr.map((cur) => cur.innerText.split("\n")[0]));
     console.log("done");
-
     const employees = cardDetails[0];
     console.log("done");
-
     const totalFunding = cardDetails[2];
     console.log("done");
-
     const {
       foundedOn,
       alias,
@@ -217,7 +199,7 @@ module.exports = async () => {
     
   }
 
-  await waitFor(20000);
+  await page.waitFor(20000);
 
   await browser.close();
 

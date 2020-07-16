@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 
 const dataSchema = new Schema({
     name: String,
+    count: Number,
     description: String,
     img_url: String,
     tags: [String],
@@ -20,4 +21,10 @@ const dataSchema = new Schema({
     }]
 });
 
-exports.DataModel = new mongoose.model('craft_companies', dataSchema);
+const linkSchema = new Schema({
+    link: String,
+});
+
+exports.DataModel = mongoose.model('craft_companies', dataSchema);
+
+exports.LinkModel = mongoose.model('craft_links', linkSchema);
