@@ -7,6 +7,7 @@ const e27Scraper = require('./e27');
 const tracxnScraper = require('./tracxn');
 const startupIndiaScraper = require('./startupIndia');
 const vbProfileScraper = require('./vbProfiles');
+const {yourStory} = require('./yourStory');
 
 (async () => {
   // connecting to the remote database
@@ -25,7 +26,7 @@ const vbProfileScraper = require('./vbProfiles');
     // await betaListScraper();
 
     // scraping craft
-    await craftScraper();
+    // await craftScraper();
 
     // scraping e27 
     // await e27Scraper();
@@ -38,7 +39,10 @@ const vbProfileScraper = require('./vbProfiles');
 
     // scraping vbProfiles
     // await vbProfileScraper();
-  
+
+    //scraping yourStory
+    await yourStory();
+    
   mongoose.disconnect(() => console.log("disconnected from the db"));
     
 })();
