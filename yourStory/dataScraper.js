@@ -331,6 +331,7 @@ const dataScraper = async () => {
     });
     console.log("Message sent");
     await browser.close();
+    throw '';
     }
   }
 };
