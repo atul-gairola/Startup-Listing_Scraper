@@ -52,9 +52,14 @@ const dataScraper = async () => {
       // go to the target url
       await page.goto(links[l].link);
 
+      try{
       await page.waitForXPath(
         '//*[@id="root"]/main/div/div/div/div[1]/div[1]/div[1]/div[2]/a/span[1]'
       );
+      }catch(e){
+        console.log('Page does not exist');
+        continue;
+      }
 
       await page.waitFor(randomnessGenerator() * 1000);
 
