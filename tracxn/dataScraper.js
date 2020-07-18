@@ -13,7 +13,7 @@ module.exports = async () => {
     links = docs;
   });
 
-  console.log('Links imported from the DB')
+  console.log('Links imported from the DB');
 
   const browser = await puppeteer.launch({
     headless: false,

@@ -29,7 +29,7 @@ const {yourStory} = require('./yourStory');
     // await craftScraper();
 
     // scraping e27 
-    // await e27Scraper();
+    await e27Scraper();
 
     // scraping startupIndia
     // await startupIndiaScraper();
@@ -41,7 +41,7 @@ const {yourStory} = require('./yourStory');
     // await vbProfileScraper();
 
     //scraping yourStory
-    await yourStory();
+    // await yourStory();
     
   mongoose.disconnect(() => console.log("disconnected from the db"));
     

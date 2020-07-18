@@ -2,7 +2,13 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
+const linkSchema = new Schema({
+    link: String,
+})
+
 const companySchema = new Schema({
+    r_c: Number,
+    slug: String,
     name: String,
     pitch: String,
     logo_img: String,
@@ -20,3 +26,4 @@ const companySchema = new Schema({
 })
 
 exports.CompanyModel = new mongoose.model('e27_companies', companySchema);
+exports.LinkModel = new mongoose.model('e27_links', linkSchema);
