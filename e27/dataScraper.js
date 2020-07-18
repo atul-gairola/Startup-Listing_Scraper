@@ -18,7 +18,7 @@ const dataScraper = async () => {
 
   // connect to the browser
   const browser = await puppeteer.launch({
-    headless: false,
+    headless: true,
     defaultViewport: null,
     args: ["--start-maximized"],
   });
