@@ -11,7 +11,7 @@
   "dependencies": {
     "dotenv": "^8.2.0",
     "mongoose": "^5.9.22",
-    "node-notifier": "^7.0.1",
+    "node-notifier": "^8.0.1",
     "nodemailer": "^6.4.10",
     "puppeteer": "^5.0.0",
     "puppeteer-extra": "^3.1.12",
